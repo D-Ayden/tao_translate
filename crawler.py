@@ -15,22 +15,16 @@ import time
 from typing import Any, TypeVar, MutableMapping, Final, Match, Union
 
 import requests
-from log import logger
 from fake_useragent import UserAgent
+
+from log import logger
+from settings import YD_URL, YD_RULE, TRANSLATE_URL, YD_STATIC_RULE
+from errors import TranslateError
 
 
 AnyStr = TypeVar("AnyStr", str, bytes, None)
 TranslateStr = Union[str, bool, None]
 
-
-YD_URL: Final = "http://fanyi.youdao.com"
-YD_RULE: Final = (
-    r"http://shared.ydstatic.com/fanyi/newweb/.*?/scripts/newweb/fanyi.min.js"
-)
-TRANSLATE_URL: Final = (
-    "http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule"
-)
-YD_STATIC_RULE: Final = r'sign:n.md5\("fanyideskweb"\+e\+i\+"(.*?)"\)'
 
 ua = UserAgent()
 yd_headers: MutableMapping[str, str] = {
@@ -54,8 +48,8 @@ def yd_translate(
     to_lang: str = "en",
 ) -> TranslateStr:
 
-    # if key == "\n":
-    #     return key
+    if key == "\n":
+        return key
 
     lts: str = str(time.time() * 1000)
     salt: str = lts + str(random.randint(0, 10))
@@ -97,14 +91,14 @@ def yd_translate(
         response = requests.post(url=TRANSLATE_URL, headers=headers, data=form_data)
 
     except requests.exceptions.ConnectionError:
-        raise ConnectionError("网络连接错误，请检查你的网络")
+        raise ConnectionError("Network connection error.")
 
-    except Exception as e:
-        raise e
+    except Exception:
+        raise TranslateError("Translation error.")
     else:
         translation_result_json: Any = response.json()
         if translation_result_json["errorCode"] == 50:
-            raise ValueError("errorCode is 50, please update data...")
+            raise ValueError("Error return value.")
 
         translation_result: dict = translation_result_json["translateResult"][0][0]
         return translation_result["tgt"]
@@ -115,13 +109,13 @@ def mathching_result(url: str, rule: str, headers: MutableMapping[str, str]) -> 
     try:
         response = requests.get(url, headers=headers)
     except requests.exceptions.ConnectionError:
-        raise ConnectionError
-    except Exception as e:
-        raise e
+        raise ConnectionError("Network connection error.")
+    except Exception:
+        raise TranslateError("Translation error.")
     else:
         search_result = re.search(rule, response.text)
         if not search_result:
-            raise ValueError("返回值为空...")
+            raise ValueError("The return value is None.")
 
         return search_result
 

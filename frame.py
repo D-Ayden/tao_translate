@@ -2,31 +2,12 @@ from typing import List, Any, Mapping, List, Optional
 
 import PySimpleGUI as sg
 
-
+from settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
 from crawler import yd_translate, get_sugar, update_sugar
 
 
 sg.ChangeLookAndFeel("GreenTan")
 
-
-LANGUAGE_MAPPING: Mapping[str, str] = {
-    "中文": "zh-CHS",
-    "英语": "en",
-    "日语": "ja",
-    "韩语": "ko",
-    "法语": "fr",
-    "德语": "de",
-    "俄语": "ru",
-}
-TRANSLATE_SELECTED: List[str] = [
-    "中文",
-    "英语",
-    "日语",
-    "韩语",
-    "法语",
-    "德语",
-    "俄语",
-]
 
 menu_list = [
     ["File", ["close"]],
