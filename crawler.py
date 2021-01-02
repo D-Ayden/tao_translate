@@ -12,7 +12,7 @@ import json
 import re
 import random
 import time
-from typing import Any, TypeVar, MutableMapping, Final, Match, Union
+from typing import Any, TypeVar, MutableMapping, Optional, Match, Union
 
 import requests
 from fake_useragent import UserAgent
@@ -130,9 +130,14 @@ def update_sugar() -> None:
         json.dump({"sugar": sugar}, f)
 
 
-def get_sugar() -> str:
-    with open("sugar.json", "r", encoding="utf-8") as f:
-        sugar = json.load(f)["sugar"]
+def get_sugar() -> Optional[str]:
+    try:
+        with open("sugar.json", "r", encoding="utf-8") as f:
+            sugar = json.load(f).get("sugar")
+    except FileNotFoundError as e:
+        logger.exception(e)
+        return None
+
     return sugar
 
 

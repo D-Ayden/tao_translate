@@ -1,4 +1,4 @@
-from typing import List, Any, Mapping, List, Optional
+from typing import List, Any, List, Optional
 
 import PySimpleGUI as sg
 
@@ -124,6 +124,10 @@ def run_gui(window) -> Optional[str]:
     event, values = window.read()
     realtime = False
     sugar = get_sugar()
+
+    if sugar is None:
+        update_sugar()
+        sugar = get_sugar()
 
     if event == "-FROM LANG-":
         window.Element("-IN LANG-").update(values["-FROM LANG-"])
