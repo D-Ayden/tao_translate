@@ -2,8 +2,8 @@ from typing import List, Any, List, Optional
 
 import PySimpleGUI as sg
 
-from settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
-from crawler import yd_translate, get_sugar, update_sugar
+from .settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
+from .crawler import yd_translate, get_sugar, update_sugar
 
 
 sg.ChangeLookAndFeel("GreenTan")
@@ -123,9 +123,9 @@ layout: List[List[Any]] = [
 def run_gui(window) -> Optional[str]:
     event, values = window.read()
     realtime = False
-    sugar = get_sugar()
-
-    if sugar is None:
+    try:
+        sugar = get_sugar()
+    except Exception:
         update_sugar()
         sugar = get_sugar()
 

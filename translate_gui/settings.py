@@ -1,5 +1,8 @@
+import os
 from typing import Final, Mapping, List
 
+BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+print(BASE_DIR)
 
 YD_URL: Final = "http://fanyi.youdao.com"
 YD_RULE: Final = (
