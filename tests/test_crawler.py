@@ -1,10 +1,15 @@
+import json
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 
-
-from translate_gui.crawler import mathching_result, yd_translate
+from translate_gui.crawler import (
+    mathching_result,
+    yd_translate,
+    update_sugar,
+    get_sugar,
+)
 
 
 def test_yd_translate():
@@ -21,17 +26,17 @@ def test_matching_result():
         rule=r"<input type=submit id=su value=(.*?) class=\"bg s_btn\">",
         headers=None,
     ).group(1)
-    print(result)
+
     assert test_result == result
 
 
 def test_update_sugar():
-    pass
+    assert None is update_sugar()
 
 
 def test_get_sugar():
-    pass
+    update_sugar()
+    with open("../sugar.json", "r", encoding="utf-8") as f:
+        sugar = json.load(f).get("sugar")
 
-
-if __name__ == "__main__":
-    test_matching_result()
+    assert sugar == get_sugar()

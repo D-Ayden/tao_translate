@@ -2,8 +2,8 @@ from typing import Any, List, Optional
 
 import PySimpleGUI as sg
 
-from crawler import get_sugar, update_sugar, yd_translate
-from settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
+from .crawler import get_sugar, update_sugar, yd_translate
+from .settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
 
 sg.ChangeLookAndFeel("GreenTan")
 
@@ -190,7 +190,3 @@ def main(layout: List[List[Any]] = layout) -> None:
             break
 
     window.close()
-
-
-if __name__ == "__main__":
-    main()

@@ -1,25 +1,16 @@
-"""
-Author: your name
-Date: 2020-12-18 00:58:21
-LastEditTime: 2020-12-18 00:58:36
-LastEditors: Please set LastEditors
-Description: In User Settings Edit
-FilePath: \python\GUI\_simpleGui\\translate.py
-"""
-
 import hashlib
 import json
 import random
 import re
 import time
-from typing import Any, Match, MutableMapping, Optional, TypeVar, Union
+from typing import Any, Match, MutableMapping, TypeVar, Union
 
 import requests
 from fake_useragent import UserAgent
 
-from errors import TranslateError
-from log import logger
-from settings import TRANSLATE_URL, YD_RULE, YD_STATIC_RULE, YD_URL
+from .errors import TranslateError
+from .log import logger
+from .settings import TRANSLATE_URL, YD_RULE, YD_STATIC_RULE, YD_URL
 
 AnyStr = TypeVar("AnyStr", str, bytes, None)
 TranslateStr = Union[str, bool, None]
@@ -126,20 +117,16 @@ def update_sugar() -> None:
         url=last_url, rule=YD_STATIC_RULE, headers=yd_static_headers
     ).group(1)
 
-    with open("sugar.json", "w", encoding="utf-8") as f:
+    with open("../sugar.json", "w", encoding="utf-8") as f:
         json.dump({"sugar": sugar}, f)
 
 
 def get_sugar() -> str:
     try:
-        with open("sugar.json", "r", encoding="utf-8") as f:
+        with open("../sugar.json", "r", encoding="utf-8") as f:
             sugar = json.load(f).get("sugar")
     except Exception as e:
         logger.exception(e)
         raise
 
     return sugar
-
-
-if __name__ == "__main__":
-    pass
