@@ -1,10 +1,9 @@
-from typing import List, Any, List, Optional
+from typing import Any, List, Optional
 
 import PySimpleGUI as sg
 
-from .settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
-from .crawler import yd_translate, get_sugar, update_sugar
-
+from crawler import get_sugar, update_sugar, yd_translate
+from settings import LANGUAGE_MAPPING, TRANSLATE_SELECTED
 
 sg.ChangeLookAndFeel("GreenTan")
 

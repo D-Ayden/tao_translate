@@ -1,16 +1,12 @@
-/translate_gui/__pycache__
+__pycache__
 
-/__pycache__
+.mypy_cache
 
-/tests/__pycache__
+.pytest_cache
 
-/.mypy_cache
+.vscode
 
-/.pytest_cache
-
-/.vscode
-
-/log
+log
 
 *.json
 

@@ -1,21 +1,40 @@
-import PySimpleGUI as sg
+class Present:
+    def __init__(self, name, age):
+        self.age = age
+        self.name = name
 
-# layout the Window
-layout = [
-    [sg.Text("A custom progress meter")],
-    [sg.ProgressBar(1000, orientation="h", size=(20, 20), key="progbar")],
-    [sg.Cancel()],
-]
+    @property
+    def name(self):
+        print("In a getter.")
+        return self.__name
 
-# create the Window
-window = sg.Window("Custom Progress Meter", layout)
-# loop that would normally do something useful
-for i in range(1000):
-    # check to see if the cancel button was clicked and exit loop if clicked
-    event, values = window.read(timeout=0)
-    if event == "Cancel" or event == sg.WIN_CLOSED:
-        break
-        # update bar with loop value +1 so that bar eventually reaches the maximum
-    window["progbar"].update_bar(i + 1)
-# done with loop... need to destroy the window as it's still open
-window.close()
+    @name.setter
+    def name(self, value):
+        print("In a setter.")
+        self.__name = value
+
+    @name.deleter
+    def name(self):
+        pass
+
+    def set_age(self):
+        self.__age = 16
+
+
+class Person:
+    def __init__(self, name, age):
+        self.age = age
+        self.name = name
+
+    def get_name(self):
+        print("In a getter.")
+        return self.__name
+
+    def set_name(self, value):
+        print("In a setter.")
+        self.__name = value
+
+    def del_name(self):
+        del self.__name
+
+    p = property(get_name, set_name, del_name, "John")

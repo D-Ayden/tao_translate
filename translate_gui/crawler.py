@@ -9,18 +9,17 @@ FilePath: \python\GUI\_simpleGui\\translate.py
 
 import hashlib
 import json
-import re
 import random
+import re
 import time
-from typing import Any, TypeVar, MutableMapping, Optional, Match, Union
+from typing import Any, Match, MutableMapping, Optional, TypeVar, Union
 
 import requests
 from fake_useragent import UserAgent
 
-from .log import logger
-from .settings import YD_URL, YD_RULE, TRANSLATE_URL, YD_STATIC_RULE
-from .errors import TranslateError
-
+from errors import TranslateError
+from log import logger
+from settings import TRANSLATE_URL, YD_RULE, YD_STATIC_RULE, YD_URL
 
 AnyStr = TypeVar("AnyStr", str, bytes, None)
 TranslateStr = Union[str, bool, None]
