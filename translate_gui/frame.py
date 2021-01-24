@@ -40,23 +40,6 @@ combo_frame = sg.Frame(
     title_color="white",
 )
 
-combo_frame2 = sg.Frame(
-    layout=[
-        [
-            sg.Combo(
-                key="-TO LANG-",
-                values=TRANSLATE_SELECTED,
-                default_value="英语",
-                font=("微软雅黑", 12),
-                size=(10, 10),
-                pad=((15, 5), (10, 5)),
-                enable_events=True,
-            )
-        ]
-    ],
-    title="选择翻译语言",
-    title_color="white",
-)
 ml_frame1 = sg.Frame(
     key="-IN LANG-",
     layout=[
@@ -179,14 +162,3 @@ def run_gui(window) -> Optional[str]:
         sg.popup("Created by zilch")
 
     return None
-
-
-def main(layout: List[List[Any]] = layout) -> None:
-    window = sg.Window("道译", layout)
-
-    while True:
-        result = run_gui(window)
-        if result == "EXIT":
-            break
-
-    window.close()

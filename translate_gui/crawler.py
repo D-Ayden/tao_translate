@@ -3,7 +3,7 @@ import json
 import random
 import re
 import time
-from typing import Any, Match, MutableMapping, TypeVar, Union
+from typing import Any, Match, MutableMapping, Union
 
 import requests
 from fake_useragent import UserAgent
@@ -12,7 +12,6 @@ from .errors import TranslateError
 from .log import logger
 from .settings import TRANSLATE_URL, YD_RULE, YD_STATIC_RULE, YD_URL
 
-AnyStr = TypeVar("AnyStr", str, bytes, None)
 TranslateStr = Union[str, bool, None]
 
 
@@ -99,7 +98,7 @@ def mathching_result(url: str, rule: str, headers: MutableMapping[str, str]) -> 
     try:
         response = requests.get(url, headers=headers)
         response.encoding = "utf-8"
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         raise ConnectionError("Network connection error.")
     except Exception:
         raise TranslateError("Translation error.")
